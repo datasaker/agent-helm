@@ -1,0 +1,18 @@
+{{- define "dsk.k8s-agent" -}}
+- name: {{ .Values.dataSaker.k8sAgent.kind }}
+  image: {{ .Values.dataSaker.registryAddr }}/{{ .Values.dataSaker.k8sAgent.kind }}:{{ .Values.dataSaker.k8sAgent.imgVersion }}
+  imagePullPolicy: {{ .Values.dataSaker.k8sAgent.imgPolicy }}
+  args:
+    - --globalconfig.file={{ .Values.dataSaker.configDir }}/global-config.yml
+    - --agentconfig.file={{ .Values.dataSaker.configDir }}/{{ .Values.dataSaker.k8sAgent.kind }}/agent-config.yml
+  resources:
+{{ toYaml .Values.dataSaker.k8sAgent.resources | indent 4 }}
+  env:
+    - name: DSK_LOG_LEVEL
+      value: {{ .Values.dataSaker.k8sAgent.logLevel }}
+  volumeMounts:
+{{ toYaml .Values.default.volumeMounts | indent 4 }}
+    - name: agent-config
+      subPath: dsk-k8s-config.yml
+      mountPath: {{ .Values.dataSaker.configDir }}/{{ .Values.dataSaker.k8sAgent.kind }}/agent-config.yml
+{{- end -}}

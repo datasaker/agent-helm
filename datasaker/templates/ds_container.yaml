@@ -1,0 +1,54 @@
+{{- define "dsk.container-agent" -}}
+- name: {{ .Values.dataSaker.containerAgent.kind }}
+  image: {{ .Values.dataSaker.registryAddr }}/{{ .Values.dataSaker.containerAgent.kind }}:{{ .Values.dataSaker.containerAgent.imgVersion }}
+  imagePullPolicy: {{ .Values.dataSaker.containerAgent.imgPolicy }}
+  securityContext:
+    privileged: true
+  args:
+    - --logtostderr=true
+    - --port=4194
+    - --disable_metrics=disk,percpu,sched,process,tcp,udp,diskIO
+    - --prometheus_endpoint=/metrics
+    - --housekeeping_interval=5s
+    - --max_housekeeping_interval=60s
+    - --storage_duration=2m0s
+    - --disable_root_cgroup_stats=true
+    - --store_container_labels=false
+{{- if eq .Values.dataSaker.runtimeType "docker" }}
+    - --docker_only=true
+    - --docker={{ .Values.dataSaker.runtimeSock | default "unix:///var/run/docker.sock" | quote }}
+{{- else }}
+    - --docker={{ .Values.dataSaker.runtimeSock | default "unix:///var/run/containerd/containerd.sock" | quote }}
+{{- end }}
+  resources:
+{{ toYaml .Values.dataSaker.containerAgent.resources | indent 4 }}
+  volumeMounts:
+{{ toYaml .Values.default.volumeMounts | indent 4 }}
+    - name: agent-configs
+      subPath: container-agent-config.yml
+      mountPath: {{ .Values.dataSaker.configDir }}/{{ .Values.dataSaker.containerAgent.kind }}/agent-config.yml
+    - name: rootfs
+      mountPath: /rootfs
+      readOnly: true
+    - name: var-run
+      mountPath: /var/run
+      readOnly: true
+    - name: sys
+      mountPath: /sys
+      readOnly: true
+    - name: disk
+      mountPath: /dev/disk
+      readOnly: true
+      {{- if eq .Values.dataSaker.runtimeType "docker" }}
+    - name: docker
+      mountPath: /var/lib/docker
+      readOnly: true
+      {{- else }}
+    - name: containerd
+      mountPath: /var/run/containerd
+      readOnly: true
+      {{- end }}
+  env:
+    - name: DSK_LOG_LEVEL
+      value: {{ .Values.dataSaker.containerAgent.logLevel }}
+{{- end -}}

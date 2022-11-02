@@ -1,0 +1,30 @@
+{{- define "dsk.node-agent" -}}
+- name: {{ .Values.dataSaker.nodeAgent.kind }}
+  image: {{ .Values.dataSaker.registryAddr }}/{{ .Values.dataSaker.nodeAgent.kind }}:{{ .Values.dataSaker.nodeAgent.imgVersion }}
+  imagePullPolicy: {{ .Values.dataSaker.nodeAgent.imgPolicy }}
+  args:
+    - --path.procfs=/host/proc
+    - --path.sysfs=/host/sys
+    - --path.rootfs=/rootfs
+    - --collector.filesystem.ignored-mount-points="^/(dev|proc|sys|run|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)"
+    - --collector.tcpstat
+    - --web.listen-address=:9110
+  resources:
+{{ toYaml .Values.dataSaker.nodeAgent.resources | indent 4 }}
+  volumeMounts:
+{{ toYaml .Values.default.volumeMounts | indent 4 }}
+    - name: agent-configs
+      subPath: node-agent-config.yml
+      mountPath: {{ .Values.dataSaker.configDir }}/{{ .Values.dataSaker.nodeAgent.kind }}/agent-config.yml
+    - name: proc
+      mountPath: /host/proc
+    - name: sys
+      mountPath: /host/sys
+    - name: rootfs
+      mountPath: /rootfs
+      mountPropagation: HostToContainer
+      readOnly: true
+  env:
+    - name: DSK_LOG_LEVEL
+      value: {{ .Values.dataSaker.nodeAgent.logLevel }}
+{{- end -}}
