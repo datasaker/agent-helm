@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  datasaker:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-11-02T14:48:43.5017331+09:00"
+    description: A Helm chart for Kubernetes
+    digest: 86daddf70a989c41b78254f5582cd1b62ab0428b321586fbf25a13bc1b6a4690
+    name: datasaker
+    type: application
+    urls:
+    - datasaker-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-11-02T14:48:43.4945218+09:00"
