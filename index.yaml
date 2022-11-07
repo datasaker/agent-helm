@@ -3,15 +3,13 @@ entries:
   agent-helm:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-04T10:06:07.6331896+09:00"
+    created: "2022-11-07T18:13:41.5630926+09:00"
     description: A Helm chart for Kubernetes
-    digest: 09227b318add09df04fd14e1c158e9add5ba767d26ad437fa5c1a81bb90f9f86
+    digest: dbf5e3807cda73e5aa982fd3964ae28e54819a99aa3ffcef1f33e93050f62d84
     icon: http://saas.ex-em.com/static/media/SaaSLogo.efc8ca3a.svg
     name: agent-helm
     type: application
     urls:
     - agent-helm-0.1.0.tgz
-    sources:
-    - https://datasaker.github.io/agent-helm/
     version: 0.1.0
-generated: "2022-11-04T10:06:07.6272921+09:00"
+generated: "2022-11-07T18:13:41.5578057+09:00"
