@@ -1,12 +1,19 @@
-# Kubernetes Agent 설치하기
+# 쿠버네티스에 헬름 차트로 기본 에이전트 설치하기
 
-## User tenant 정보 등록
+## 유저 테넌트 정보 등록
+
+**데이터세이커**는 쿠버네티스에 **기본 에이전트를**를 설치할 수 있는 헬름 차트를 제공합니다. 차트를 설치하기 전에 유저 테넌트 정보를 등록해야 합니다.
+
+> **데이터세이커** 디렉토리 생성 및 권한 설정
+
 ```shell
-# datasaker 디렉토리 생성
 mkdir -p ~/datasaker
+chmod 755 ~/datasaker/
 ```
+
+> **데이터세이커** 유저 정보 등록
+
 ```shell
-# datasaker 유저 정보 등록
 cat << EOF > ~/datasaker/config.yaml
 dataSaker:
   clusterName: $(cluster_name)
@@ -16,24 +23,29 @@ dataSaker:
 EOF
 ```
 
-## helm을 이용하여 agent 설치
-```shell
-# datasaker helm repo를 추가합니다.
-helm repo add datasaker https://datasaker.github.io/agent-helm/
-```
+## helm을 이용한 에이전트 설치
 
-```shell
-# datasaker helm pull
-helm pull datasaker/agent-helm
-```
+> 데이터세이커 헬름 레포지토리 추가
 
-```shell
-# 압축 풀기
-tar -zxvf agent-helm-0.1.0.tgz -C ~/datasaker
-```
+  ```shell
+  helm repo add datasaker https://datasaker.github.io/agent-helm/
+  ```
 
-```shell
-# datasaker kubernetes agent 설치
-helm install datasaker ~/datasaker/agent-helm -n datasaker --create-namespace \
-  -f ~/datasaker/config.yaml
-```
+> 데이터세이커 헬름 pull
+
+  ```shell
+  helm pull datasaker/agent-helm
+  ```
+
+> 압축 해제
+
+  ```shell
+  tar -zxvf agent-helm-0.1.0.tgz -C ~/datasaker
+  ```
+
+> 기본 에이전트 설치
+
+  ```shell
+  helm install datasaker ~/datasaker/agent-helm -n datasaker --create-namespace \
+    -f ~/datasaker/config.yaml
+  ```

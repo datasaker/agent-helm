@@ -3,13 +3,13 @@ entries:
   agent-helm:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-16T12:10:48.130501+09:00"
+    created: "2022-11-23T19:03:27.4008376+09:00"
     description: A Helm chart for Kubernetes
-    digest: 5d789f9ee3a2f1b630e78f4d784b7ce152ab8388e2e5c1059fbbad7ad043defa
+    digest: fb4e16ebf8703baacc88d725d12e735f9a3f5e87f6a7a3716b61735c13f6fc73
     icon: http://saas.ex-em.com/static/media/SaaSLogo.efc8ca3a.svg
     name: agent-helm
     type: application
     urls:
     - agent-helm-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-16T12:10:48.1234612+09:00"
+generated: "2022-11-23T19:03:27.3941114+09:00"
