@@ -15,7 +15,7 @@ chmod 755 ~/datasaker/
 
 ```shell
 cat << EOF > ~/datasaker/config.yaml
-dataSaker:
+userInfo:
   clusterName: ${VAR_CLUSTER_NAME}
   apiKey: ${VAR_GLOBAL_APIKEY}
   runtimeType: ${VAR_RUNTIME_TYPE}
