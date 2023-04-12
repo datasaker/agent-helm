@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   agent-helm:
   - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2023-04-12T17:39:19.946629+09:00"
+    description: A Helm chart for Kubernetes
+    digest: 28148b54b1c4514165c6ecce9a598f4961a12dc51efe6b2742328075bebca200
+    icon: http://saas.ex-em.com/static/media/SaaSLogo.efc8ca3a.svg
+    name: agent-helm
+    type: application
+    urls:
+    - agent-helm-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-03T18:59:05.6112019+09:00"
+    created: "2023-04-12T17:39:19.9458106+09:00"
     description: A Helm chart for Kubernetes
     digest: 11b815d05f24d482f15412e52db5faab396d0de472b0a60974056dd1dc6cc5a8
     icon: http://saas.ex-em.com/static/media/SaaSLogo.efc8ca3a.svg
@@ -12,4 +23,4 @@ entries:
     urls:
     - agent-helm-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-03T18:59:05.6090685+09:00"
+generated: "2023-04-12T17:39:19.9445057+09:00"
